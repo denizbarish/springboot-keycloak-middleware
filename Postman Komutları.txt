@@ -1,0 +1,23 @@
+curl -X POST "http://localhost:8180/realms/api-middleware/protocol/openid-connect/token" \
+  --header "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode "client_id=api-middleware-client" \
+  --data-urlencode "client_secret=CLIENT_SECRET" \
+  --data-urlencode "grant_type=password" \
+  --data-urlencode "username=supplier_user" \
+  --data-urlencode "password=supplier"
+
+curl -X GET "http://localhost:8080/api/supplier/listall" \
+  --header "Authorization: Bearer SUPPLIER_TOKEN" \
+  --header "Source: Supplier"
+
+curl -X POST "http://localhost:8180/realms/api-middleware/protocol/openid-connect/token" \
+  --header "Content-Type: application/x-www-form-urlencoded" \
+  --data-urlencode "client_id=api-middleware-client" \
+  --data-urlencode "client_secret=CLIENT_SECRET" \
+  --data-urlencode "grant_type=password" \
+  --data-urlencode "username=market_user" \
+  --data-urlencode "password=market"
+
+curl -X GET "http://localhost:8080/api/supplier/listall" \
+  --header "Authorization: Bearer MARKET_TOKEN" \
+  --header "Source: Market"
